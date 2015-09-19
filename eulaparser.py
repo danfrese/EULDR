@@ -1,5 +1,6 @@
-#!/usr/bin/python
+
 import os, sys, re
+from sys import argv
 
 class eulaParagraph:
     def __init__(self, hdr, para):
@@ -9,12 +10,8 @@ class eulaParagraph:
     header = ''
     paragraph = ''
 
-class paraProcesser(object):
-    def __init__(self, para):
-        self.paragraph = para
-
     def pprocess(para):
-        fin2 = open('worthless.txt', 'r')
+        #fin2 = open('worthless.txt', 'r')
         lines = para
         passage = ''
         for x in lines:
@@ -65,15 +62,23 @@ class paraProcesser(object):
         fin2.close()
         return answer
 
+"""
+class paraProcesser(object):
+    def __init__(self, para):
+        self.paragraph = para
+"""
+
+
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         print "Please enter an EULA file."
-        sys.exit(-1)
+        #sys.exit(-1)
     hfile = open(sys.argv[1], "r")
 
     sections = []
     headings = []
-
+    # Regex operators to find heading patterns
+    # Need to adjust for EULAs that don't fall under this style format
     pattern = re.compile(r'((^\s*)(([0-9]*)|([a-z])?)\.)')
     data = ''
     line = hfile.readline()
@@ -99,8 +104,8 @@ if __name__ == '__main__':
 
         sections.append(eulaParagraph(heading, para))
         index += 1
-
-    paragrapher = paraProcesser()
+    # line 108 breaks it, heading is not defined
+    paragrapher = eulaParagraph(heading, para)
     for p in sections:
         print "-"*25 + p.header + "-"*25
         print pararapher.pprocess(p.paragraph)
