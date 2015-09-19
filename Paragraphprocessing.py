@@ -6,7 +6,8 @@ def pprocess(para):
 	       passage = passage + x
     passage = passage.replace('\n', '')
     origSentences = passage.split('.')
-    for x in origSentences
+    for x in origSentences:
+        x = x + '.'
     passage = passage.replace(',', '')
     sentences = passage.split('.')
     for x in sentences:
@@ -45,5 +46,6 @@ def pprocess(para):
     answer = ''
     for x in range(len(sentences)):
         if sentencescore[x] > highscore/2:
-            answer = answer + sentences[x]
+            answer = answer + origSentences[x]
+    fin2.close()
     return answer
