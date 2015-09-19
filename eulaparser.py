@@ -12,10 +12,11 @@ class eulaParagraph(object):
 
     # breaks down the given paragraph and displays the general idea of it
     def pprocess(self, para):
+        # Opens the worthless dictionary to find
         fin2 = open('worthless.txt', 'r')
-        lines = para
-        passage = ''
-        for x in lines:
+        lines = para                        # Set lines equal to the current paragraph being analyzed
+        passage = ''                        # Initialize passage to hold the lines to be altered
+        for x in lines:                     # Add paragraph lines to the current passage string
     	       passage = passage + x
         passage = passage.replace('\n', '')
         origSentences = passage.split('.')
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     sections = []                   # array of sections
 
     #Regex operators to find heading pattern in given file.txt
-    # TODO(@Zack) Need to adjust for EULAs that don't fall under this style format
+    # TODO Need to adjust for EULAs that don't fall under this style format
     pattern = re.compile(r'((^\s*)(([0-9]*)|([a-z])?)\.)')
     data = ''
     line = hfile.readline()
@@ -107,21 +108,9 @@ if __name__ == '__main__':
         sections.append(eulaParagraph(heading, para))
         index += 1
         new_heading = heading
-    """
-    paragrapher = eulaParagraph(new_heading, para)
-    for p in sections:
-        print "-"*25 + p.header + "-"*25
-        print pararapher.pprocess(p.paragraph)
-    """
 
 #paragrapher = eulaParagraph(new_heading, sections)
 paragrapher = eulaParagraph(new_heading, para)
 for p in sections:
-    print "-"*25 + p.header + "-"*25 # this works fine
-    print paragrapher.pprocess(p.paragraph) # this prints the subheadings in section 17
-
-"""
-for p in sections:
-    print "-"*25 + p.header + "-"*25
-    print p.paragraph
-"""
+    print "-"*25 + p.header + "-"*25            # Prints the current header value
+    print paragrapher.pprocess(p.paragraph)     # This prints the paragraphs inside each heading
