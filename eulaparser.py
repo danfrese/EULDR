@@ -2,7 +2,7 @@
 import os, sys, re
 from sys import argv
 
-class eulaParagraph:
+class eulaParagraph(object):
     def __init__(self, hdr, para):
         self.header = hdr
         self.paragraph = para
@@ -10,8 +10,9 @@ class eulaParagraph:
     header = ''
     paragraph = ''
 
-    def pprocess(para):
-        #fin2 = open('worthless.txt', 'r')
+    # breaks down the given paragraph and displays the general idea of it
+    def pprocess(self, para):
+        fin2 = open('worthless.txt', 'r')
         lines = para
         passage = ''
         for x in lines:
@@ -62,26 +63,26 @@ class eulaParagraph:
         fin2.close()
         return answer
 
-"""
-class paraProcesser(object):
-    def __init__(self, para):
-        self.paragraph = para
-"""
-
-
 if __name__ == '__main__':
+    # Asks for filename.txt
     if len(sys.argv) == 1:
         print "Please enter an EULA file."
         #sys.exit(-1)
     hfile = open(sys.argv[1], "r")
 
-    sections = []
-    headings = []
-    # Regex operators to find heading patterns
-    # Need to adjust for EULAs that don't fall under this style format
+    # heading and paragraph vars used by the paragrapher object
+    new_heading = ''
+    para = ''
+
+    headings = []                   # array of headings
+    sections = []                   # array of sections
+
+    #Regex operators to find heading pattern in given file.txt
+    # TODO(@Zack) Need to adjust for EULAs that don't fall under this style format
     pattern = re.compile(r'((^\s*)(([0-9]*)|([a-z])?)\.)')
     data = ''
     line = hfile.readline()
+    # Append qualifying line to header list
     while line:
         data += line
         if pattern.match(line):
@@ -92,6 +93,7 @@ if __name__ == '__main__':
 
     offset = 0
     index = 0
+    # Associate text paragraphs to heading entries
     for heading in headings:
         begin = data.find(heading, offset) + len(heading)
         offset = begin
@@ -104,11 +106,19 @@ if __name__ == '__main__':
 
         sections.append(eulaParagraph(heading, para))
         index += 1
-    # line 108 breaks it, heading is not defined
-    paragrapher = eulaParagraph(heading, para)
+        new_heading = heading
+    """
+    paragrapher = eulaParagraph(new_heading, para)
     for p in sections:
         print "-"*25 + p.header + "-"*25
         print pararapher.pprocess(p.paragraph)
+    """
+
+#paragrapher = eulaParagraph(new_heading, sections)
+paragrapher = eulaParagraph(new_heading, para)
+for p in sections:
+    print "-"*25 + p.header + "-"*25 # this works fine
+    print paragrapher.pprocess(p.paragraph) # this prints the subheadings in section 17
 
 """
 for p in sections:
