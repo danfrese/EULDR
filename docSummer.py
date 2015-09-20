@@ -179,10 +179,7 @@ def main():
     index = 0
     eulaSum = ''
     for p in sections:
-        #print "sample text"
-        # OK!!!!
         eulaSum += "\n\n" + "-"*3 + p.header + "-"*25 + "\n"    # Prints the current header value
-        # NOT OK!!!!
         sentences_dic = st.get_sentences_ranks(para[index])
         summary = st.get_summary(para[index], sentences_dic)
         print summary
@@ -192,7 +189,7 @@ def main():
     root = Tk()
     url = 'http://lmgtfy.com/?q=EULA'                               #sets up sight url to use later
 
-    root.iconbitmap(default='favicon.ico')                          #changes icon
+    #root.iconbitmap(default='favicon.ico')                          #changes icon
 
     root.title ("TL:DR")                                            #titles the text box as TL:DR
     root.geometry("850x600")                                        #Sets text box size
