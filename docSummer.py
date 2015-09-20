@@ -1,7 +1,8 @@
 # coding=UTF-8
 from __future__ import division
-import re, os, sys
+import re, os, sys, ScrolledText, webbrowser
 from sys import argv
+from Tkinter import *
 
 class SummaryTool(object):
     def __init__(self, hdr, content):
@@ -179,12 +180,46 @@ def main():
     for p in sections:
         #print "sample text"
         # OK!!!!
-        print "-"*25 + p.header + "-"*25    # Prints the current header value
+        print "\n\n" + "-"*3 + p.header + "-"*25 + "\n"    # Prints the current header value
         # NOT OK!!!!
         sentences_dic = st.get_sentences_ranks(para[index])
         summary = st.get_summary(para[index], sentences_dic)
-        print summary                       # Prints the simplified paragraph under each heading
+        print summary
+        eulaSum += summary                   # Prints the simplified paragraph under each heading
         index += 1
+
+    root = Tk()
+    url = 'http://lmgtfy.com/?q=EULA'                               #sets up sight url to use later
+
+    root.iconbitmap(default='favicon.ico')                          #changes icon
+
+    root.title ("TL:DR")                                            #titles the text box as TL:DR
+    root.geometry("850x600")                                        #Sets text box size
+
+    bottFrame = Frame(root)                                         #Makes a frame for the bottom, frames are things you can but modules and text into
+    bottFrame.pack(side=BOTTOM)                                     #sets where the frame is to bottom
+
+    label = Label(root, text='This is what you have to know:')      #Top text file
+    label.pack()                                                    #puts the label in the first spot(the top)
+
+    scrollText = ScrolledText.ScrolledText(root)
+    scrollText.pack()
+
+    scrollText.insert(INSERT, eulaSum + "\n\n")
+    scrollText.insert(INSERT, 'Do you understand?\n')
+
+    def OpenUrl():
+        webbrowser.open_new(url)
+
+    yesBut = Button(bottFrame, text = "      I understand      ", command=quit )
+    noBut = Button(bottFrame, text = "    I don't understand    ", command=OpenUrl)
+
+    yesBut.pack(side=LEFT, padx=2,pady=2)
+    noBut.pack(padx=2,pady=2)
+
+
+    root.mainloop()
+
 
 if __name__ == '__main__':
     main()
