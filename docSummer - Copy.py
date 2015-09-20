@@ -134,7 +134,7 @@ def main():
 
     # heading and paragraph vars used by the paragrapher object
     new_heading = ''
-    para = ''
+    para = []
 
     headings = []                   # array of headings
     sections = []                   # array of sections
@@ -164,11 +164,17 @@ def main():
             end = data.find(headings[index+1])
         else:
             end = len(data)
-        para = data[begin:end]
+        #para[heading] = data[begin:end]
 
-        sections.append(SummaryTool(heading, para))# Assign the heading and paragraph lists to
+        #sections.append(SummaryTool(heading, para[heading]))# Assign the heading and paragraph lists to
         index += 1
         new_heading = heading
+
+    for s in sections:
+        para.append(sections[s])
+
+        sections.append(SummaryTool(heading, para))# Assign the heading and paragraph lists to
+
 
     # @TODO Find a way to grab what company owns this digital product
     title = """TeamViewer End-User License Agreement"""
@@ -185,14 +191,11 @@ def main():
 
     for p in sections:
         # OK!!!!
-        print "-"*25 + p.header + "-"*25    # Prints the current header value
+        print "-"*25 + p.header + "-"*25                # Prints the current header value
         # NOT OK!!!!
-        sentences_dic = st.get_sentences_ranks(para)
-        summary = st.get_summary(para, sentences_dic)
-        print summary                       # Prints the simplified paragraph under each heading
-
-    # Show the new, summarized content
-    #print summary
+        sentences_dic = st.get_sentences_ranks(para[p])    # Build the sentences dictionary
+        summary = st.get_summary(para[p], sentences_dic)
+        print summary                                   # Prints the simplified paragraph under each heading
 
 if __name__ == '__main__':
     main()

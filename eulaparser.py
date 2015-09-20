@@ -3,14 +3,13 @@ import os, sys, re
 from sys import argv
 
 class eulaParagraph(object):
-    def __init__(self, hdr, para):
+    def __init__(self, hdr, content):
         self.header = hdr
-        self.paragraph = para
+        self.paragraph = content
 
     header = ''
     paragraph = ''
 
-    # GitHub was broken and didn't push the initial commit
     # breaks down the given paragraph and displays the general idea of it
     def pprocess(self, para):
         fin2 = open('worthless.txt', 'r')   # Opens the worthless dictionary to find useless wording
@@ -116,7 +115,7 @@ if __name__ == '__main__':
             end = len(data)
         para = data[begin:end]
 
-        sections.append(eulaParagraph(heading, para))
+        sections.append(eulaParagraph(heading, para))# Assign the heading and paragraph lists to the
         index += 1
         new_heading = heading
 
