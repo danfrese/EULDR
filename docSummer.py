@@ -105,8 +105,6 @@ class SummaryTool(object):
 
         # Add title
         summary = []
-        #summary.append(title.strip())# Append a copy of the title with the leading & trailing characters removed
-        #summary.append("")
 
         # Append the best sentence from each paragraph to the final summary
         for p in paragraphs:
