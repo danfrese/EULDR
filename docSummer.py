@@ -134,7 +134,7 @@ def main():
 
     # heading and paragraph vars used by the paragrapher object
     new_heading = ''
-    para = ''
+    para = []
 
     headings = []                   # array of headings
     sections = []                   # array of sections
@@ -164,7 +164,7 @@ def main():
             end = data.find(headings[index+1])
         else:
             end = len(data)
-        para = data[begin:end]
+        para.append(data[begin:end])
 
         sections.append(SummaryTool(heading, para))# Assign the heading and paragraph lists to
         index += 1
@@ -182,14 +182,16 @@ def main():
 
     # Build the summary with the sentences dictionary
     #summary = st.get_summary(para, sentences_dic)
-
+    index = 0
     for p in sections:
+        #print "sample text"
         # OK!!!!
         print "-"*25 + p.header + "-"*25    # Prints the current header value
         # NOT OK!!!!
-        sentences_dic = st.get_sentences_ranks(para)
-        summary = st.get_summary(para, sentences_dic)
+        sentences_dic = st.get_sentences_ranks(para[index])
+        summary = st.get_summary(para[index], sentences_dic)
         print summary                       # Prints the simplified paragraph under each heading
+        index += 1
 
     # Show the new, summarized content
     #print summary
