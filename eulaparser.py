@@ -79,7 +79,7 @@ if __name__ == '__main__':
     # Asks for filename.txt
     if len(sys.argv) == 1:
         print "Please enter an EULA file."
-        #sys.exit(-1)
+        sys.exit(-1)
     hfile = open(sys.argv[1], "r")
 
     # heading and paragraph vars used by the paragrapher object
