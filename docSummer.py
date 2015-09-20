@@ -177,11 +177,6 @@ def main():
     # Create a SummaryTool object
     st = SummaryTool(new_heading, para)
 
-    # Build the sentences dictionary
-    #sentences_dic = st.get_sentences_ranks(para)
-
-    # Build the summary with the sentences dictionary
-    #summary = st.get_summary(para, sentences_dic)
     index = 0
     for p in sections:
         #print "sample text"
@@ -192,9 +187,6 @@ def main():
         summary = st.get_summary(para[index], sentences_dic)
         print summary                       # Prints the simplified paragraph under each heading
         index += 1
-
-    # Show the new, summarized content
-    #print summary
 
 if __name__ == '__main__':
     main()
