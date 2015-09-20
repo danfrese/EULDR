@@ -38,7 +38,7 @@ class SummaryTool(object):
         sentence = re.sub(r'\W+', '', sentence)
         return sentence
 
-    # Convert the content into a dictionary <K, V>
+    # Convert the current text into a dictionary <K, V>
     # k = The formatted sentence
     # V = The value|rank of the sentence
     def get_sentences_ranks(self, content):
@@ -53,9 +53,11 @@ class SummaryTool(object):
             for j in range(0, n):
                 values[i][j] = self.sentences_intersection(sentences[i], sentences[j])
 
-        # Build sentences dictionary
-        # The score of a sentences is the sum of all its intersection
-        # The higher the score, the more likely we will use it in the final portion
+        """
+            Purpose: Build sentences dictionary
+            The score of a sentences is the sum of all its intersection
+            The higher the score, the more likely we will use it in the final portion
+        """
         sentences_dic = {}
         for i in range(0, n):
             score = 0
@@ -77,15 +79,15 @@ class SummaryTool(object):
             return ""
 
         # Get the best sentence according to the sentences dictionary
+        # Looks for the highest "score"
         best_sentence = ""
-        max_value = 0
+        highScore = 0
         for s in sentences:
             strip_s = self.format_sentence(s)
             if strip_s:
-                if sentences_dic[strip_s] > max_value:
-                    max_value = sentences_dic[strip_s]
+                if sentences_dic[strip_s] > highScore:
+                    highScore = sentences_dic[strip_s]
                     best_sentence = s
-
         return best_sentence
 
     # Build the summary
@@ -99,7 +101,7 @@ class SummaryTool(object):
         summary.append(title.strip())
         summary.append("")
 
-        # Add the best sentence from each paragraph
+        # Append the best sentence from each paragraph to the final summary
         for p in paragraphs:
             sentence = self.get_best_sentence(p, sentences_dic).strip()
             if sentence:
