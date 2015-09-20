@@ -10,6 +10,7 @@ class eulaParagraph(object):
     header = ''
     paragraph = ''
 
+    # GitHub was broken and didn't push the initial commit
     # breaks down the given paragraph and displays the general idea of it
     def pprocess(self, para):
         fin2 = open('worthless.txt', 'r')   # Opens the worthless dictionary to find useless wording
